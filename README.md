@@ -5,7 +5,9 @@
 * **URL**
 
     REST API URL can be found on Apps Page <br />
-    ![image](https://user-images.githubusercontent.com/34130764/196452238-c90cf520-eacd-41f5-876c-3f03ed08508e.png)
+    (Sample image)
+  <img width="960" alt="image" src="https://user-images.githubusercontent.com/112387862/228836402-3b5934a6-5549-4b5f-838d-a99821fa4053.png">
+
     Sample Url for eg: <br /> `http://localhost:3000/api/apps/public/783d8e4d-b06a-409a-aaf3-b37650dc0a26/incoming`
 
 * **Method:**
