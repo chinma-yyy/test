@@ -23,6 +23,6 @@ jobs:
           for pr in $(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ github.repository }}/pulls?state=open" | \
             jq -r '.[].number'); do
-            echo "${{github}} hello $pr"
+            echo "${{toJson(github)}} hello $pr"
           done
           echo "No merge conflicts found in any open PRs."
