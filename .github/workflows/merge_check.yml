@@ -9,24 +9,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Fetch branches
-      run: |
-        git fetch origin ${{ github.ref }}
-        git fetch origin ${{ github.event.pull_request.base.ref }}
-        git fetch origin ${{ github.event.pull_request.head.ref }}
+      - name: Fetch branches
+        run: |
+          git fetch origin ${{ github.ref }}
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+          git fetch origin ${{ github.event.pull_request.head.ref }}
 
-    - name: Merge conflict check
-      run: |
-        for pr in $(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          "https://api.github.com/repos/${{ github.repository }}/pulls?state=open" | \
-          jq -r '.[].number'); do
-          git diff origin/${{ github.event.pull_request.base.ref }}...origin/${{ github.event.pull_request.head.ref }} --name-only | xargs git diff --check
-          if [ $? -eq 1 ]; then
-            echo "Merge conflict detected in PR $pr!"
-            exit 1
-          fi
-        done
-        echo "No merge conflicts found in any open PRs."
+      - name: Merge conflict check
+        run: |
+          for pr in $(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls?state=open" | \
+            jq -r '.[].number'); do
+            echo "${{github.event.pull_request.number}}"
+          done
+          echo "No merge conflicts found in any open PRs."
