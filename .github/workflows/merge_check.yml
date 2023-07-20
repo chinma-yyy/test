@@ -4,37 +4,10 @@ on:
   push:
   pull_request:
 
+permissions:
+  pull-requests: write
+
 jobs:
-  merge_conflict_check:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Fetch branches
-        run: |
-          git fetch origin ${{ github.ref }}
-          git fetch origin ${{ github.event.pull_request.base.ref }}
-          git fetch origin ${{ github.event.pull_request.head.ref }}
-
-      - name: Merge conflict check
-        run: |
-          for pr in $(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls?state=open" | \
-            jq -r '.[] '); do
-            echo " hello $pr"
-          done
-          echo "${{toJson(github)}} No merge conflicts found in any open PRs."
-  merge_conflict_job:
-    runs-on: ubuntu-latest
-    name: Find merge conflicts
-    steps:
-      # Checkout the source code so there are some files to look at.
-      - uses: actions/checkout@v2
-      # Run the actual merge conflict finder
-      - name: Merge Conflict finder
-        uses: olivernybroe/action-conflict-finder@v4.0
   auto-comment-merge-conflicts:
     runs-on: ubuntu-latest
     steps:
