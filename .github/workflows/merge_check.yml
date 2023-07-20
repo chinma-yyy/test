@@ -35,3 +35,14 @@ jobs:
       # Run the actual merge conflict finder
       - name: Merge Conflict finder
         uses: olivernybroe/action-conflict-finder@v4.0
+  auto-comment-merge-conflicts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: codytseng/auto-comment-merge-conflicts@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          comment-body: "Merge Conflict"
+          wait-ms: 3000
+          max-retries: 5
+          label-name: conflict
+          ignore-authors: dependabot,otherAuthor
