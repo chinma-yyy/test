@@ -44,5 +44,3 @@ jobs:
           comment-body: "Merge Conflict"
           wait-ms: 3000
           max-retries: 5
-          label-name: conflict
-          ignore-authors: dependabot,otherAuthor
